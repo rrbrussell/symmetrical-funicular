@@ -1,0 +1,19 @@
+<nav class="navbar navbar-expand-sm">
+    <a href="#" class="navbar-brand h1">{{ .Site.Title }}</a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+        aria-controls="navbarNav" aria-expand="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse hstack gap-3 align-bottom" id="navbarNav">
+        <ul class="navbar-nav">
+            {{- $sec := .Page.Section }}{{ $file := .File.TranslationBaseName -}}
+            {{ range.Site.Menus.main.ByWeight }}{{ $base := path.Base .URL }}
+            <li class="nav-item"><a {{ if or ( eq $sec $base ) ( eq $file $base ) ( and (eq $sec "" ) ( eq
+                    $file "_index" ) (eq $base "/" ) ) }} class="nav-link active" {{ else }} class="nav-link" {{ end }}
+                    href="{{ .URL }}">{{ .Name }}
+                </a>
+            </li>
+            {{- end }}
+        </ul>
+    </div>
+</nav>
