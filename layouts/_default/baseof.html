@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <!-- include fonts from typekit -->
+    <link rel="stylesheet" href="https://use.typekit.net/hgm2efz.css">
+    {{ $options := (dict "targetPath" "css/styles.css" "outputStyle" "compressed") }}
+    {{ $style := resources.Get "sass/main.scss" | resources.ToCSS $options }}
+    <link rel="stylesheet" type="text/css" media="screen" href="{{ $style.RelPermalink }}">
+    <link rel="canonical" href="{{ .Site.BaseURL }}">
+    <link rel="alternate" type="application/rss+xml" title="{{ .Site.Title }} RSS" href="/index.xml">
+    {{ if isset .Params "keywords" }}
+    <meta name="keywords" content="{{ with .Params.keywords }}{{ delimit . " , " }}{{ end }}">
+    {{ end -}}
+    <meta name="robots" content="index, follow">
+    <title>
+        {{ block "title" . }}
+        {{ if not .IsHome}}{{ .Title | title}} | {{ end }}{{ .Site.Title }}
+        {{ end }}
+    </title>
+</head>
+
+<body class="container">
+
+    <nav class="navbar navbar-expand-lg border-bottom border-black border-3">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="{{ .Site.BaseURL }}">{{ .Site.Title }}</a>
+            <span class="navbar-brand">&verbar;</span>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+                data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
+                aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                    {{ range.Site.Menus.main.ByWeight }}{{ $base := path.Base .URL }}
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ .URL }}">{{ .Name }}</a>
+                    </li>
+                    {{ end }}
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Code that all your templates share, like a header -->
+    {{ block "main" . }}
+    <!-- The part of the page that begins to differ between templates -->
+    {{ end }}
+
+    {{ if or .NextInSection .PrevInSection }}
+    <div id="nextprev">
+        {{ with .PrevInSection }}
+        <a href="{{ .RelPermalink}}">
+            <div id="prevart"><i class="fa-solid fa-backward"></i> {{.Title}}</div>
+        </a>
+        {{ end }}
+        {{ with .NextInSection }}
+        <a href="{{ .RelPermalink}}">
+            <div id="nextart"><i class="fa-solid fa-forward"></i> {{.Title}}</div>
+        </a>
+        {{ end }}
+    </div>
+    {{ end -}}
+
+    <footer>
+        <a href="/index.xml"><img class="fa-solid fa-rss" alt="&nbsp;RSS Feed"></img></a>
+        <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"
+            integrity="sha384-oBqDVmMz9ATKxIep9tiCxS/Z9fNfEXiDAYTujMAeBAsjFuCZSmKbSSUnQlmh/jp3"
+            crossorigin="anonymous"></script>
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.min.js"
+            integrity="sha384-cuYeSxntonz0PPNlHhBs68uyIAVpIIOZZ5JqeqvYYIcEL727kskC66kF92t6Xl2V"
+            crossorigin="anonymous"></script>
+        {{ with .Site.Params.fontawesome.kit }}
+        <script src="https://kit.fontawesome.com/{{ . }}.js" crossorigin="anonymous"></script>
+        {{ end -}}
+    </footer>
+</body>
+
+</html>

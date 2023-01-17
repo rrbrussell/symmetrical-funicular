@@ -1,8 +1,4 @@
-{{ partial "header.html" . -}}
-<header>
-    <h1>{{ .Title }}</h1>
-</header>
-<article>
-    {{ .Content -}}
-</article>
-{{- partial "footer.html" . }}
+{{ define "main" }}
+<h1 class="display-1 text-center">{{ .Title }}</h1>
+{{ .Content }}
+{{ end }}
