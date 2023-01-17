@@ -1,8 +1,13 @@
 {{ define "main" }}
-{{ range .RegularPages }}
+{{ $numberOfItems := len .RegularPages }}
+{{ $numberOfItems = add $numberOfItems -1 }}
+{{ range $index, $value := .RegularPages }}
 <article>
     <h1 class="display-6"><a href="{{ .Page.RelPermalink }}">{{ .Title }}</a></h1>
     {{ .Content }}
+    {{ if (ne $index $numberOfItems) }}
+    <hr class="border border-primary border-3 opacity-100">
+    {{ end }}
 </article>
 {{ end }}
 {{ end }}
