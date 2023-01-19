@@ -48,7 +48,6 @@
 
     <!-- Code that all your templates share, like a header -->
     {{ block "main" . }}
-    <!-- The part of the page that begins to differ between templates -->
     {{ end }}
 
     {{ if or .NextInSection .PrevInSection }}
@@ -67,6 +66,7 @@
     {{ end -}}
 
     <footer>
+        <hr class="border border-primary border-2 opacity-100">
         <a href="/index.xml"><img class="fa-solid fa-rss" alt="&nbsp;RSS Feed"></img></a>
         <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"
             integrity="sha384-oBqDVmMz9ATKxIep9tiCxS/Z9fNfEXiDAYTujMAeBAsjFuCZSmKbSSUnQlmh/jp3"

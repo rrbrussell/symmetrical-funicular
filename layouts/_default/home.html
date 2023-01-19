@@ -1,7 +1,8 @@
 {{ define "main" }}
-{{ $numberOfItems := len .RegularPages }}
+{{ $posts := where .Site.RegularPages "Section" "posts" }}
+{{ $numberOfItems := len $posts }}
 {{ $numberOfItems = add $numberOfItems -1 }}
-{{ range $index, $value := .RegularPages }}
+{{ range $index, $value := $posts }}
 <article>
     <h1 class="display-4"><a href="{{ .Page.RelPermalink }}">{{ .Title | title }}</a></h1>
     <p>Written by: {{ $.Params.author }} on {{ .PublishDate.Format "Monday, January 2, 2006" }}.
