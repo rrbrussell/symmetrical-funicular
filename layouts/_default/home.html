@@ -1,14 +1,15 @@
 {{ define "main" }}
 {{ $posts := where .Site.RegularPages "Section" "posts" }}
+{{$posts}}
+{{ $paginator := (.Paginate $posts 5) }}
+{{$paginator}}
+
 {{ $numberOfItems := len $posts }}
 {{ $numberOfItems = add $numberOfItems -1 }}
 {{ range $index, $value := $posts }}
 <article>
     <h1 class="display-4"><a href="{{ .Page.RelPermalink }}">{{ .Title | title }}</a></h1>
     <p>Written by: {{ .Params.author }} on {{ .PublishDate.Format "Monday, January 2, 2006" }}.
-        {{ if ( gt .Lastmod .PublishDate ) }}
-        Last modified at {{ .Lastmod.Format "11:01 PM" }} on {{ .Lastmod.Format "Monday, January 2, 2006" }}
-        {{ end }}
     </p>
     {{ .Content }}
     <p>&copy;{{ .Params.Date.Format "2006" }} {{ $.Params.author }} &ndash;

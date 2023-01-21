@@ -1,15 +1,10 @@
 {{ define "main" }}
 <h1 class="display-4 text-center">{{ .Title | title }}</h1>
-<p>Written by: {{ $.Params.author }} on {{ .PublishDate.Format "Monday, January 2, 2006" }}.</p>
+<p>Written by: {{ $.Params.author }} in {{ .PublishDate.Format "2006" }}.</p>
 {{ .Content }}
 <p>&copy;{{ .Params.Date.Format "2006" }} {{ $.Params.author }} &ndash;
     {{ with index (.GetTerms "copyrights") 0 }}
     <a href="{{ .Permalink }}">{{ .LinkTitle }}</a>
     {{ end }}
 </p>
-<ul>See other articles also tagged:
-{{ range (.GetTerms "tags") }}
-    <li><a href="{{.Permalink}}">{{.Title}}</a></li>
-{{ end }}
-</ul>
 {{ end }}
