@@ -1,0 +1,5 @@
+<p>&copy;{{ .Params.Date.Format "2006" }} {{ .Params.author }} &mdash;
+{{ with index (.GetTerms "copyrights") 0 }}
+  <a href="{{ .Permalink }}">{{ .LinkTitle }}</a></p>
+  {{ .Content }}
+{{ end }}

@@ -1,0 +1,12 @@
+{{ define "main" }}
+<article>
+  <h1 class="display-4">{{ .Title | title }}</h1>
+  {{ .Content }}
+  <hr class="border border-primary border-1" >
+  <ul>
+  {{ range .Pages.ByTitle }}
+    <li><a href="{{ .Page.Permalink }}">{{ .Page.Title }} &mdash; {{ .Params.description }}</a></li>
+  {{ end }}
+  </ul>
+</article>
+{{ end }}
